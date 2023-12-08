@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "tnp2004.codes.anykit",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

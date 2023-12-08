@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #111827;
+    color: #e2e8f0;
+}
+
+@layer base {
+    .card-element {
+        @apply flex flex-col w-32 h-32 bg-slate-800 border-highlight rounded text-center overflow-hidden drop-shadow-lg hover:drop-shadow-2xl cursor-pointer opacity-80 hover:opacity-100
+    }
+
+    .lcard-elem {
+        @apply bg-slate-700 block font-bold
+    }
+
+    .icon {
+        @apply h-full m-auto w-20
+    }
+    
+    .border-highlight {
+        @apply border-2 border-transparent hover:border-slate-300
+    }
+}
