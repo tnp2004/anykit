@@ -9,14 +9,6 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, officia?
     </div>
     <div class="flex flex-wrap gap-7">
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
-        <Card title="Apple" icon={iApple} />
+        <Card title="Apple" link="/apple" icon={iApple} />
     </div>
 </div>

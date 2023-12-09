@@ -13,11 +13,15 @@ body {
     }
 
     .lcard-elem {
-        @apply bg-slate-700 block font-bold
+        @apply bg-slate-700 block font-bold cursor-pointer
     }
 
-    .icon {
+    .kit-elem {
         @apply h-full m-auto w-20
+    }
+
+    .btn {
+        @apply rounded-sm cursor-pointer drop-shadow-lg hover:drop-shadow-2xl opacity-80 hover:opacity-100
     }
     
     .border-highlight {
