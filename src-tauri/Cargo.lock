@@ -71,6 +71,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "tauri-build",
+ "urlshortener",
 ]
 
 [[package]]
@@ -3750,6 +3751,16 @@ dependencies = [
  "idna 0.5.0",
  "percent-encoding",
  "serde",
+]
+
+[[package]]
+name = "urlshortener"
+version = "3.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45f52f28eac462823cdf5ad746c2fd1355498e3450e8854c22e9da61a1fbe572"
+dependencies = [
+ "reqwest",
+ "url",
 ]
 
 [[package]]

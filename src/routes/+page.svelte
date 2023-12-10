@@ -1,6 +1,6 @@
 <script>
     import Card from "../elements/Card.svelte";
-    import iApple from "../icons/apple.svg";
+    import iMiniLink from "../icons/link1.svg";
 </script>
 
 <div class="px-5 py-2">
@@ -9,6 +9,6 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, officia?
     </div>
     <div class="flex flex-wrap gap-7">
-        <Card title="Apple" link="/apple" icon={iApple} />
+        <Card title="Mini link" link="/minilink" icon={iMiniLink} />
     </div>
 </div>
