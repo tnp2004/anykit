@@ -15,6 +15,7 @@
 
     const get_qrcode = () => {
         shortLink = ""
+        new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
     };
 
     const copyClipboard = () => {
@@ -67,5 +68,7 @@
         </button>
     </div>
     {/if}
+
+    <div id="qrcode"></div>
 
 </div>
