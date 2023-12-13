@@ -1,11 +1,11 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use urlshortener::{ client::UrlShortener, providers::Provider };
+use app::minilink::link;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![rust_say_hi, mini_link])
+        .invoke_handler(tauri::generate_handler![rust_say_hi, short_link])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -16,7 +16,6 @@ fn rust_say_hi() -> String {
 }
 
 #[tauri::command]
-fn mini_link(url: String) -> String {
-    let url_shortener = UrlShortener::new().unwrap();
-    url_shortener.generate(url, &Provider::IsGd).unwrap()
+fn short_link(url: String) -> String {
+    link::get_short_link(url)
 }

@@ -10,18 +10,16 @@
     let shortLink: string;
 
     const get_link = async () => {
-        shortLink = await invoke("mini_link", { url: inputLink });
+        shortLink = await invoke("short_link", { url: inputLink });
     };
 
     const get_qrcode = () => {
-        shortLink = ""
-        new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+        shortLink = "";
     };
 
-    const copyClipboard = () => {
-        navigator.clipboard.writeText(shortLink);
+    const copyClipboard = (value: string) => {
+        navigator.clipboard.writeText(value);
     };
-
 </script>
 
 <div class="px-5 py-2">
@@ -44,7 +42,7 @@
                 <img class="m-auto" src={iLink} alt="icon" />
             </button>
             <button
-            on:click={get_qrcode}
+                on:click={get_qrcode}
                 class="px-2 bg-slate-800 hover:bg-slate-800/50 w-20 h-10 text-lg rounded-sm"
             >
                 <img class="m-auto" src={iQrCode} alt="icon" />
@@ -53,22 +51,20 @@
     </div>
 
     {#if shortLink}
-    <div class="flex gap-1 mb-10">
-        <input
-            bind:value={shortLink}
-            class="px-2 rounded-sm text-slate-600 bg-slate-800/50 w-1/2 h-10 text-lg"
-            type="text"
-            disabled
-        />
-        <button
-            on:click={copyClipboard}
-            class="px-2 bg-slate-800 hover:bg-slate-800/50 w-20 h-10 text-lg rounded-sm"
-        >
-            <img class="m-auto" src={iCopy} alt="icon" />
-        </button>
-    </div>
+        <div class="flex gap-1 mb-10 justify-center">
+            <input
+                bind:value={shortLink}
+                class="px-2 rounded-sm text-slate-600 bg-slate-800/50 w-1/2 h-10 text-lg"
+                type="text"
+                disabled
+            />
+            <button
+                on:click={() => copyClipboard(shortLink)}
+                class="px-2 bg-slate-800 hover:bg-slate-800/50 w-20 h-10 text-lg rounded-sm"
+            >
+                <img class="m-auto" src={iCopy} alt="icon" />
+            </button>
+        </div>
     {/if}
-
     <div id="qrcode"></div>
-
 </div>
