@@ -17,5 +17,8 @@ fn rust_say_hi() -> String {
 
 #[tauri::command]
 fn short_link(url: String) -> String {
-    link::get_short_link(url)
+   match link::get_short_link(url) {
+         Ok(link) => link,
+         Err(e) => e.to_string()
+   }
 }
