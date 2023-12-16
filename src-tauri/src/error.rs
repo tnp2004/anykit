@@ -1,11 +1,15 @@
 pub enum Error {
-    Minilink(String)
+    InvalidInput(String),
+    Other,
+    Generate(String),
 }
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let message = match self {
-            Self::Minilink(text) => "Minilink error: ".to_string() + text + "\n"
+            Self::InvalidInput(e) => e,
+            Self::Other => "Something went wrong!. Try again!",
+            Self::Generate(e) => e,
         };
 
         write!(f, "{}", message)
