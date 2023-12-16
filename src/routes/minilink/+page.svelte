@@ -3,18 +3,25 @@
     import iLink from "../../icons/link2.svg";
     import iQrCode from "../../icons/qrcode.svg";
     import iCopy from "../../icons/copy.svg";
-
     import { invoke } from "@tauri-apps/api/tauri";
 
     let inputLink: string;
     let shortLink: string;
+    let qrCodeImage: string;
+
+    const clear = () => {
+        shortLink = "";
+        qrCodeImage = "";
+    };
 
     const get_link = async () => {
+        clear();
         shortLink = await invoke("short_link", { url: inputLink });
     };
 
-    const get_qrcode = () => {
-        shortLink = "";
+    const get_qrcode = async () => {
+        clear();
+        qrCodeImage = await invoke("qrcode", { url: inputLink });
     };
 
     const copyClipboard = (value: string) => {
@@ -51,7 +58,7 @@
     </div>
 
     {#if shortLink}
-        <div class="flex gap-1 mb-10 justify-center">
+        <div class="flex gap-1 mb-10">
             <input
                 bind:value={shortLink}
                 class="px-2 rounded-sm text-slate-600 bg-slate-800/50 w-1/2 h-10 text-lg"
@@ -66,5 +73,9 @@
             </button>
         </div>
     {/if}
-    <div id="qrcode"></div>
+    {#if qrCodeImage}
+        <div class="bg-slate-800 w-fit p-3 rounded m-auto">
+            <img class="mx-auto" src={qrCodeImage} id="qrcode" alt="qrcode" />
+        </div>
+    {/if}
 </div>
