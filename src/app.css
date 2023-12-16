@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +9,10 @@ body {
 }
 
 @layer base {
+
+    html {
+        @apply font-lexend
+    }
     .card-element {
         @apply flex flex-col w-32 h-32 bg-slate-800 border-highlight rounded text-center overflow-hidden drop-shadow-lg hover:drop-shadow-2xl cursor-pointer opacity-80 hover:opacity-100
     }
