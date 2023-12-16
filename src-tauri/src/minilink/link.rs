@@ -1,7 +1,7 @@
 use urlshortener::{client::UrlShortener, providers::Provider};
 use crate::{Error, Result};
 
-pub fn get_short_link(link: String) -> Result<String> {
+pub fn validate_link(link: &String) -> Result<()> {
     if link.trim().is_empty() {
         return Err(Error::InvalidInput("link cannot be empty".to_string()));
     }
@@ -12,6 +12,12 @@ pub fn get_short_link(link: String) -> Result<String> {
     let Some(_) = regx.captures(link.as_str()) else {
         return Err(Error::InvalidInput("link is invalid".to_string()));
     };
+
+    Ok(())
+}
+
+pub fn get_short_link(link: String) -> Result<String> {
+    validate_link(&link)?;
 
     let url_shortener = match UrlShortener::new() {
         Ok(url_shortener) => url_shortener,
