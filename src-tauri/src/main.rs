@@ -3,6 +3,12 @@
 
 use app::minilink::{link, qrcode};
 
+#[derive(serde::Serialize)]
+struct Res {
+    status: String,
+    message: String,
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![short_link, qrcode])
@@ -12,10 +18,16 @@ fn main() {
 
 /* Minilink */
 #[tauri::command]
-fn short_link(url: String) -> String {
+fn short_link(url: String) -> Res {
     match link::get_short_link(url) {
-        Ok(link) => link,
-        Err(e) => e.to_string(),
+        Ok(link) => Res {
+            status: "OK".to_string(),
+            message: link,
+        },
+        Err(e) => Res {
+            status: "Error".to_string(),
+            message: e.to_string(),
+        }
     }
 }
 

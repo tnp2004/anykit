@@ -15,3 +15,4 @@ impl std::fmt::Display for Error {
         write!(f, "{}", message)
     }
 }
+

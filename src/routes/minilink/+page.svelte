@@ -5,23 +5,49 @@
     import iCopy from "../../icons/copy.svg";
     import { invoke } from "@tauri-apps/api/tauri";
 
-    let inputLink: string;
+    let inputValue: string;
+
     let shortLink: string;
-    let qrCodeImage: string;
+    let qrImage: string;
+    let warningMsg: string;
+
+   type Status = "OK" | "Error";
+
+    interface Response {
+        status: Status;
+        message: string;
+    }
 
     const clear = () => {
         shortLink = "";
-        qrCodeImage = "";
+        qrImage = "";
+        warningMsg = "";
     };
 
     const get_link = async () => {
         clear();
-        shortLink = await invoke("short_link", { url: inputLink });
+        const res: Response = await invoke("short_link", { url: inputValue });
+        switch (res.status) {
+            case "OK":
+                shortLink = res.message;
+                return;
+            case "Error":
+                warningMsg = res.message;
+                return;
+        }
     };
 
     const get_qrcode = async () => {
         clear();
-        qrCodeImage = await invoke("qrcode", { url: inputLink });
+        const res: Response = await invoke("qrcode", { url: inputValue });
+        switch (res.status) {
+            case "OK":
+                shortLink = res.message;
+                return;
+            case "Error":
+                warningMsg = res.message;
+                return;
+        }
     };
 
     const copyClipboard = (value: string) => {
@@ -37,7 +63,7 @@
         >
         <div class="flex gap-1 mb-10">
             <input
-                bind:value={inputLink}
+                bind:value={inputValue}
                 class="px-2 rounded-sm bg-slate-800 w-full h-10 text-lg"
                 type="text"
                 placeholder="Put your link here"
@@ -55,6 +81,11 @@
                 <img class="m-auto" src={iQrCode} alt="icon" />
             </button>
         </div>
+        {#if warningMsg}
+            <label class="bg-rose-500/40 text-slate-200 p-1 rounded" for="warning">
+                {warningMsg}
+            </label>
+        {/if}
     </div>
 
     {#if shortLink}
@@ -73,9 +104,10 @@
             </button>
         </div>
     {/if}
-    {#if qrCodeImage}
+
+    {#if qrImage}
         <div class="bg-slate-800 w-fit p-3 rounded m-auto">
-            <img class="mx-auto" src={qrCodeImage} id="qrcode" alt="qrcode" />
+            <img class="mx-auto" src={qrImage} id="qrcode" alt="qrcode" />
         </div>
     {/if}
 </div>
