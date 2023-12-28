@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use app::minilink::{link, qrcode};
+use app::tubelo;
 
 #[derive(serde::Serialize)]
 struct Res {
@@ -9,9 +10,10 @@ struct Res {
     message: String,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![short_link, qrcode])
+        .invoke_handler(tauri::generate_handler![short_link, qrcode, download_mp4])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -27,7 +29,7 @@ fn short_link(url: String) -> Res {
         Err(e) => Res {
             status: "Error".to_string(),
             message: e.to_string(),
-        }
+        },
     }
 }
 
@@ -38,4 +40,9 @@ fn qrcode(url: String) -> String {
         Err(e) => e.to_string(),
     }
 }
-/* --------------------------------------------- */
+
+/* Tubelo */
+#[tauri::command]
+async fn download_mp4(url: String) {
+    tubelo::convert::Download.mp4(&url).await;
+}
