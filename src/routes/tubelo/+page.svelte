@@ -4,6 +4,10 @@
 
     let inputValue: string;
 
+    const download_audio_mp3 = async () => {
+        await invoke("download_mp3", { url: inputValue });
+    };
+
     const download_vid_mp4 = async () => {
         await invoke("download_mp4", { url: inputValue });
     };
@@ -24,7 +28,9 @@
 <label class="block text-slate-300 font-bold mb-2 text-xl" for="link"
     >Download</label
 >
-<button class="px-2 bg-slate-800 hover:bg-slate-800/50 h-10 text-lg rounded-sm">
+<button
+ class="px-2 bg-slate-800 hover:bg-slate-800/50 h-10 text-lg rounded-sm"
+ on:click={download_audio_mp3}>
     MP 3
 </button>
 <button

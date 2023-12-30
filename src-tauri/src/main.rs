@@ -1,8 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use app::minilink::{link, qrcode};
-use app::tubelo;
+use app::{minilink, tubelo};
 
 #[derive(serde::Serialize)]
 struct Res {
@@ -13,7 +12,7 @@ struct Res {
 #[tokio::main]
 async fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![short_link, qrcode, download_mp4])
+        .invoke_handler(tauri::generate_handler![short_link, qrcode, download_mp3, download_mp4])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -21,7 +20,7 @@ async fn main() {
 /* Minilink */
 #[tauri::command]
 fn short_link(url: String) -> Res {
-    match link::get_short_link(url) {
+    match minilink::link::get_short_link(url) {
         Ok(link) => Res {
             status: "OK".to_string(),
             message: link,
@@ -35,7 +34,7 @@ fn short_link(url: String) -> Res {
 
 #[tauri::command]
 fn qrcode(url: String) -> String {
-    match qrcode::get_qrcode(url) {
+    match minilink::qrcode::get_qrcode(url) {
         Ok(link) => link,
         Err(e) => e.to_string(),
     }
@@ -43,6 +42,13 @@ fn qrcode(url: String) -> String {
 
 /* Tubelo */
 #[tauri::command]
+async fn download_mp3(url: String) {
+    let loader = tubelo::convert::Downloader::init(url);
+    loader.mp3().await;
+}
+
+#[tauri::command]
 async fn download_mp4(url: String) {
-    tubelo::convert::Download.mp4(&url).await;
+    let loader = tubelo::convert::Downloader::init(url);
+    loader.mp4().await;
 }
