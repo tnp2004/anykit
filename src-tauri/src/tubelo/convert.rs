@@ -13,12 +13,13 @@ impl Downloader {
     }
 
     pub async fn mp3(&self) {
+        let file_extension = "mp3";
         let id = Id::from_raw(&self.url).unwrap();
         let descrambler = VideoFetcher::from_id(id.into_owned())
         .unwrap().fetch().await.unwrap();
 
         let title = &descrambler.video_details().title;
-        let path = format!("{}.mp3", title);
+        let path = format!("{}.{}", title,file_extension);
 
         let vdo = &descrambler.descramble().unwrap();
         let stream = Video::best_audio(vdo).unwrap();
@@ -29,12 +30,13 @@ impl Downloader {
     }
 
     pub async fn mp4(&self) {
+        let file_extension = "mp4";
         let id = Id::from_raw(&self.url).unwrap();
         let descrambler = VideoFetcher::from_id(id.into_owned())
         .unwrap().fetch().await.unwrap();
 
         let title = &descrambler.video_details().title;
-        let path = format!("{}.mp4", title);
+        let path = format!("{}.{}", title, file_extension);
 
         let vdo = &descrambler.descramble().unwrap();
         let stream = Video::best_quality(vdo).unwrap();

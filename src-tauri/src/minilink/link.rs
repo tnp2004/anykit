@@ -1,5 +1,4 @@
-use super::validation;
-use crate::{Error, Result};
+use crate::{Error, Result, validation};
 use urlshortener::{client::UrlShortener, providers::Provider};
 
 pub fn get_short_link(link: String) -> Result<String> {

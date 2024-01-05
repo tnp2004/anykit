@@ -31,11 +31,10 @@ fn short_link(url: String) -> Res {
         },
     }
 }
-
 #[tauri::command]
 fn qrcode(url: String) -> String {
     match minilink::qrcode::get_qrcode(url) {
-        Ok(link) => link,
+        Ok(link) => link.to_string(),
         Err(e) => e.to_string(),
     }
 }

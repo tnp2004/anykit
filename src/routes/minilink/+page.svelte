@@ -16,6 +16,7 @@
     interface Response {
         status: Status;
         message: string;
+        value: any;
     }
 
     const clear = () => {
@@ -39,15 +40,8 @@
 
     const get_qrcode = async () => {
         clear();
-        const res: Response = await invoke("qrcode", { url: inputValue });
-        switch (res.status) {
-            case "OK":
-                shortLink = res.message;
-                return;
-            case "Error":
-                warningMsg = res.message;
-                return;
-        }
+        const res: string = await invoke("qrcode", { url: inputValue });
+        qrImage = res;
     };
 
     const copyClipboard = (value: string) => {
@@ -105,7 +99,7 @@
 {/if}
 
 {#if qrImage}
-    <div class="bg-slate-800 w-fit p-3 rounded m-auto">
-        <img class="mx-auto" src={qrImage} id="qrcode" alt="qrcode" />
-    </div>
+<div class="bg-slate-800 w-fit p-3 rounded m-auto">
+    <img class="mx-auto" src={qrImage} id="qrcode" alt="qrcode" />
+</div>
 {/if}
