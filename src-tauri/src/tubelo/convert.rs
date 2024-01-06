@@ -20,7 +20,7 @@ impl Downloader {
 
         let title = &descrambler.video_details().title;
         let path = format!("{}.{}", title,file_extension);
-
+        println!("path: {}", path);
         let vdo = &descrambler.descramble().unwrap();
         let stream = Video::best_audio(vdo).unwrap();
         

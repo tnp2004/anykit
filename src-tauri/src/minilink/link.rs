@@ -1,4 +1,4 @@
-use crate::{Error, Result, validation};
+use crate::{validation, Error, Result};
 use urlshortener::{client::UrlShortener, providers::Provider};
 
 pub fn get_short_link(link: String) -> Result<String> {
@@ -17,6 +17,7 @@ pub fn get_short_link(link: String) -> Result<String> {
             return Err(Error::Generate("cannot generate short link".to_string()));
         }
     };
+    println!("short link: {}", link);
 
     Ok(link)
 }
