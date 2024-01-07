@@ -5,11 +5,11 @@
     let inputValue: string;
 
     const download_audio_mp3 = async () => {
-        await invoke("download_mp3", { url: inputValue });
+        await invoke("tubelo_downloader", { fileType: "mp3", url: inputValue });
     };
 
     const download_vid_mp4 = async () => {
-        await invoke("download_mp4", { url: inputValue });
+        await invoke("tubelo_downloader", { fileType: "mp4",url: inputValue });
     };
 </script>
 

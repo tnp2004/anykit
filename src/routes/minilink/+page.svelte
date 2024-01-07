@@ -30,10 +30,10 @@
         const res: Response = await invoke("short_link", { url: inputValue });
         switch (res.status) {
             case "OK":
-                shortLink = res.message;
+                shortLink = res.value;
                 return;
             case "Error":
-                warningMsg = res.message;
+                warningMsg = res.value;
                 return;
         }
     };
@@ -99,7 +99,7 @@
 {/if}
 
 {#if qrImage}
-<div class="bg-slate-800 w-fit p-3 rounded m-auto">
-    <img class="mx-auto" src={qrImage} id="qrcode" alt="qrcode" />
-</div>
+    <div class="bg-slate-800 w-fit p-3 rounded m-auto">
+        <img class="mx-auto" src={qrImage} id="qrcode" alt="qrcode" />
+    </div>
 {/if}

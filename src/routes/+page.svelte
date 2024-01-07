@@ -1,5 +1,6 @@
 <script>
     import Card from "../elements/Card.svelte";
+    import Loader from "../elements/Loader.svelte";
     import iMiniLink from "../icons/link1.svg";
     import iTubelo from "../icons/tubelo.svg";
 </script>

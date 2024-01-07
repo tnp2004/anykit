@@ -10,14 +10,13 @@ struct Response<T> {
     value: T,
 }
 
-#[tokio::main]
+#[tokio::main(flavor = "multi_thread")]
 async fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             short_link,
             qrcode,
-            download_mp3,
-            download_mp4
+            tubelo_downloader,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -50,14 +49,12 @@ fn qrcode(url: String) -> String {
 
 /* Tubelo */
 #[tauri::command]
-async fn download_mp3(url: String) {
-    let result = tokio::task::spawn_blocking(move || tubelo::convert::Downloader::init(url));
-    let loader = result.await.unwrap();
-    loader.mp3().await;
-}
-
-#[tauri::command]
-async fn download_mp4(url: String) {
+async fn tubelo_downloader(file_type: String, url: String) {
     let loader = tubelo::convert::Downloader::init(url);
-    loader.mp4().await;
+    println!("file_type: {}", file_type);
+    match file_type.as_str() {
+        "mp3" => loader.mp3().await,
+        "mp4" => loader.mp4().await,
+        _ => println!("Invalid file type"),
+    }
 }
