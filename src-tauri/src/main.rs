@@ -24,8 +24,8 @@ async fn main() {
 
 /* Minilink */
 #[tauri::command]
-fn short_link(url: String) -> Response<String> {
-     match minilink::link::get_short_link(url) {
+async fn short_link(url: String) -> Response<String> {
+     match minilink::link::get_short_link(url).await {
         Ok(link) => Response {
             status: "OK".to_string(),
             message: "short link has been created".to_string(),
@@ -51,7 +51,6 @@ fn qrcode(url: String) -> String {
 #[tauri::command]
 async fn tubelo_downloader(file_type: String, url: String) {
     let loader = tubelo::convert::Downloader::init(url);
-    println!("file_type: {}", file_type);
     match file_type.as_str() {
         "mp3" => loader.mp3().await,
         "mp4" => loader.mp4().await,
