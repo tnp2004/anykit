@@ -75,7 +75,7 @@
         </button>
     </div>
     {#if warningMsg}
-        <label class="bg-rose-500/40 text-slate-200 p-1 rounded" for="warning">
+        <label class="text-rose-500/90 p-1 rounded" for="warning">
             {warningMsg}
         </label>
     {/if}
