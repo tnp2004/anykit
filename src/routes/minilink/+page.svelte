@@ -4,6 +4,9 @@
     import iQrCode from "../../icons/qrcode.svg";
     import iCopy from "../../icons/copy.svg";
     import { invoke } from "@tauri-apps/api/tauri";
+    import { getToastStore } from "@skeletonlabs/skeleton";
+
+    const toastStore = getToastStore();
 
     let inputValue: string;
 
@@ -33,7 +36,7 @@
                 shortLink = res.value;
                 return;
             case "Error":
-                warningMsg = res.value;
+                warning(res.message);
                 return;
         }
     };
@@ -47,6 +50,15 @@
     const copyClipboard = (value: string) => {
         navigator.clipboard.writeText(value);
     };
+
+    const warning = (msg: string) => {
+        toastStore.trigger({
+            message: msg,
+            timeout: 5000,
+            classes: "bg-rose-500/90",
+        });
+    };
+ 
 </script>
 
 <KitHeader title="MiniLink" desc="Shorten your link" />
