@@ -18,8 +18,9 @@ impl Downloader {
         let descrambler = VideoFetcher::from_id(id.into_owned())
         .unwrap().fetch().await.unwrap();
 
+        let destination_path = "D:/devstuff/rust/anykit/videos";
         let title = &descrambler.video_details().title;
-        let path = format!("{}.{}", title,file_extension);
+        let path = format!("{}/{}.{}", destination_path, title,file_extension);
         println!("path: {}", path);
         let vdo = &descrambler.descramble().unwrap();
         let stream = Video::best_audio(vdo).unwrap();
@@ -35,8 +36,9 @@ impl Downloader {
         let descrambler = VideoFetcher::from_id(id.into_owned())
         .unwrap().fetch().await.unwrap();
 
+        let destination_path = "D:/devstuff/rust/anykit/videos";
         let title = &descrambler.video_details().title;
-        let path = format!("{}.{}", title, file_extension);
+        let path = format!("{}/{}.{}", destination_path, title, file_extension);
 
         let vdo = &descrambler.descramble().unwrap();
         let stream = Video::best_quality(vdo).unwrap();
